@@ -1,0 +1,149 @@
+name: coastal-modern-palette
+version: 1.0.0
+description: >
+  Apply when the user mentions "ma palette", "coastal", "soft modern", "design
+  épuré", "landing page", "UI component", or asks for color recommendations,
+  a design system, or any frontend/visual output. Provides the full Coastal
+  Modern design system: palette tokens, CSS/Tailwind snippets, proportion rules,
+  WCAG contrast guidance, dark mode, system states, and data-viz color order.
+
+prompt: |
+  You are working within the **Coastal Modern** design system. Always apply the
+  following tokens, rules, and snippets when producing any UI, component, or
+  visual output.
+
+  ## Design Tokens
+
+  | Token | Hex |
+  |---|---|
+  | --color-primary | #7FAFB0 |
+  | --color-primary-dark | #3D7F82 |
+  | --color-bg | #F7F4F0 |
+  | --color-surface | #FFFFFF |
+  | --color-text | #1E2B2E |
+  | --color-text-secondary | #5E7578 |
+  | --color-accent | #C4874A |
+  | --color-border | #DDD8D0 |
+
+  ## CSS Variables (include in :root)
+
+  ```css
+  :root {
+    --color-primary:          #7FAFB0;
+    --color-primary-dark:     #3D7F82;
+    --color-bg:               #F7F4F0;
+    --color-surface:          #FFFFFF;
+    --color-text:             #1E2B2E;
+    --color-text-secondary:   #5E7578;
+    --color-accent:           #C4874A;
+    --color-border:           #DDD8D0;
+    --shadow-sm: 0 1px 3px rgba(30,43,46,0.08);
+    --shadow-md: 0 4px 12px rgba(30,43,46,0.10);
+    --shadow-lg: 0 8px 24px rgba(30,43,46,0.12);
+  }
+  ```
+
+  ## Tailwind Config
+
+  ```js
+  // tailwind.config.js
+  module.exports = {
+    theme: {
+      extend: {
+        colors: {
+          primary:        '#7FAFB0',
+          'primary-dark': '#3D7F82',
+          bg:             '#F7F4F0',
+          surface:        '#FFFFFF',
+          ink:            '#1E2B2E',
+          slate:          '#5E7578',
+          caramel:        '#C4874A',
+          sand:           '#DDD8D0',
+        },
+      },
+    },
+  }
+  ```
+
+  **For Claude.ai artifacts, use arbitrary classes:**
+  `bg-[#F7F4F0]`, `bg-[#7FAFB0]`, `text-[#1E2B2E]`, `border-[#DDD8D0]`, `bg-[#C4874A]`
+
+  ## Proportion Rule — 80 / 15 / 5
+
+  - **80 %** → Warm white `#F7F4F0`, Pure white `#FFFFFF`, Sand `#DDD8D0` — backgrounds, cards, dividers.
+  - **15 %** → Seafoam `#7FAFB0`, Deep teal `#3D7F82` — CTAs, nav, active states, icons.
+  - **5 %** → Caramel `#C4874A` — one accent element per viewport maximum (badge, highlight, single CTA).
+
+  Never let caramel dominate. If it appears on more than one element per viewport, replace extra instances with teal.
+
+  ## WCAG Contrast Rules
+
+  - **Body text on background:** `#1E2B2E` on `#F7F4F0` → 13.2:1 (AAA). Always safe.
+  - **White text on teal:** Only on `#3D7F82` (deep teal, 4.8:1 AA). Never white on `#7FAFB0` (2.8:1, fails).
+  - **Text on seafoam chips/badges:** Use `#1E2B2E` (5.3:1 AA), not white.
+  - **Text on caramel:** Use `#1E2B2E` (6.8:1 AA). Never white on caramel.
+  - **CTA button:** `#3D7F82` background + `#FFFFFF` text is the only fully compliant combo.
+
+  ## Typography
+
+  | Role | Font | Weight | Size |
+  |---|---|---|---|
+  | Display / H1 | Playfair Display | 700 | 48–64 px |
+  | H2–H4 | Inter or DM Sans | 600 | 24–36 px |
+  | Body | Inter | 400 | 16–18 px |
+  | Caption | Inter | 400 | 12–14 px |
+  | CTA | Inter | 600 | 15–16 px, letter-spacing 0.02em |
+
+  ## Shape & Shadows
+
+  - Border radius: `12px` cards · `8px` inputs · `999px` pills · `4px` tooltips.
+  - Borders: `1px solid #DDD8D0`. Never black borders.
+  - Shadows: warm tint only (see --shadow-* tokens). No cold grey shadows.
+  - Icons: stroke-based (Lucide / Phosphor), 1.5 px stroke, filled only for active state.
+
+  ## Dark Mode
+
+  ```css
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --color-bg:             #121B1C;
+      --color-surface:        #1C2A2C;
+      --color-text:           #E8F0F0;
+      --color-text-secondary: #8AABAC;
+      --color-primary:        #7FAFB0;
+      --color-primary-dark:   #5E9EA0;
+      --color-accent:         #D4975A;
+      --color-border:         #2C3E40;
+    }
+  }
+  ```
+
+  ## System State Colours
+
+  | State | Background | Text/Icon | Border |
+  |---|---|---|---|
+  | Success | #E6F4F1 | #2A7A6A | #A8D8CF |
+  | Warning | #FDF3E3 | #8A5A1A | #F0D4A0 |
+  | Error | #FAE8E6 | #9B3A32 | #E8B8B4 |
+  | Info | #E8F2F3 | #3D7F82 | #A8CFD1 |
+
+  ## Data-Viz Series Order
+
+  1. `#3D7F82` Deep teal
+  2. `#C4874A` Caramel
+  3. `#7FAFB0` Seafoam
+  4. `#8AABAC` Muted teal
+  5. `#E0B080` Light caramel
+  6. `#5E7578` Slate
+
+  ## Delivery Checklist
+
+  Before finalising any output, confirm:
+  - [ ] CSS tokens in `:root`
+  - [ ] CTA uses `#3D7F82` bg + white text
+  - [ ] No white text on `#7FAFB0`
+  - [ ] Caramel ≤ 1× per viewport
+  - [ ] Dark mode block present
+  - [ ] Shadows use warm rgba(30,43,46,…) tint
+  - [ ] Border radius follows 12/8/999/4 px scale
+  - [ ] Icons stroke-based, 1.5 px
